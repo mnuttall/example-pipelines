@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: simple-pipeline-with-buildah
+  name: simple-pipeline-with-buildah-from-catalog
 spec:
   resources: 
   - name: git-source
@@ -11,13 +11,13 @@ spec:
   tasks:
   - name: build-simple
     taskRef:
-      name: buildah-build-push
+      name: buildah
     resources:
       inputs:
-      - name: git-source
+      - name: source
         resource: git-source
       outputs:
-      - name: builtImage
+      - name: image
         resource: docker-image
   - name: deploy-simple
     runAfter: [build-simple]
